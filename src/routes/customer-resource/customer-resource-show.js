@@ -14,40 +14,63 @@ export default class CustomerResourceShowRoute extends Component {
       }).isRequired
     }).isRequired,
     resources: PropTypes.shape({
-      showCustomerResource: PropTypes.shape({
+      customerResource: PropTypes.shape({
         records: PropTypes.arrayOf(PropTypes.object)
       })
-    })
+    }),
+    mutator: PropTypes.shape({
+      customerResource: PropTypes.shape({
+        PUT: PropTypes.func,
+        GET: PropTypes.func,
+      }),
+    }).isRequired,
   };
 
   static manifest = Object.freeze({
-    showCustomerResource: {
+    customerResource: {
       type: 'okapi',
       path: 'eholdings/vendors/:{vendorId}/packages/:{packageId}/titles/:{titleId}',
-      pk: 'titleId'
+      pk: 'titleId',
+      records: 'customerResourcesList'
+      // GET: {
+      //   path: 'eholdings/vendors/:{vendorId}/packages/:{packageId}/titles/:{titleId}',
+      // },
+      // PUT: {
+      //   path: 'eholdings/vendors/:{vendorId}/packages/:{packageId}/titles/:{titleId}'
+      // }
     }
   });
 
+  constructor(props) {
+    super(props);
+    this.getCustomerResource = this.getCustomerResource.bind(this);
+    this.saveChanges = this.saveChanges.bind(this);
+  }
+
   render() {
     return (
-      <View customerResource={this.getCustomerResource()}/>
+      <View 
+        customerResource={this.getCustomerResource()}
+        saveChanges={this.saveChanges}
+      />
     );
   }
 
   getCustomerResource() {
     const {
-      resources: { showCustomerResource },
-      match: { params: { vendorId, packageId, titleId } }
+      resources: { customerResource }
     } = this.props;
 
-    if (!showCustomerResource) {
+    if (!customerResource) {
       return null;
     }
+    return customerResource.records[0];
+  }
 
-    return showCustomerResource.records.find((title) => {
-      return title.titleId == titleId && title.customerResourcesList.some((pkgTitle) => {
-        return pkgTitle.packageId == packageId && pkgTitle.vendorId == vendorId;
-      });
-    });
+  saveChanges(event) {
+    console.log("checked is ", event.target.checked);
+    this.props.mutator.customerResource.PUT({'titleId': this.props.data.customerResource[0].titleId, 'isSelected': event.target.checked})
+    
+    // this.getCustomerResource();
   }
 }

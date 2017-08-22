@@ -47,6 +47,18 @@ describeApplication('CustomerResourceShow', function() {
     });
   });
 
+  describe("selecting a customer resource", function() {
+    // beforeEach(function() {
+    //   // TODO: click checkbox
+    // });
+
+    it('sends a request to select the resource');
+
+    it('displays the resource as selected after update', function() {
+      expect(CustomerResourceShowPage.isSelected).to.equal('checked');
+    });
+  });
+
   describe.skip("encountering a server error", function() {
     beforeEach(function() {
       this.server.get('/vendors/:vendorId/packages/:packageId/titles/:titleId', [{

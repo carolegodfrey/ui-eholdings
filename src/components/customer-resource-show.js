@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import Pane from '@folio/stripes-components/lib/Pane';
 import KeyValueLabel from './key-value-label';
+import { Field, reduxForm } from 'redux-form';
+import Checkbox from '@folio/stripes-components/lib/Checkbox';
 
-export default function CustomerResourceShow({ customerResource }) {
+export default function CustomerResourceShow({ customerResource, saveChanges }) {
   return (
     <div data-test-eholdings-customer-resource-show>
       <Paneset>
@@ -15,31 +17,32 @@ export default function CustomerResourceShow({ customerResource }) {
               <div style={{ margin: '2rem 0' }}>
                 <KeyValueLabel label="Resource">
                   <h1 data-test-eholdings-customer-resource-show-title-name>
-                    {customerResource.titleName}
+                    "test"
                   </h1>
                 </KeyValueLabel>
               </div>
 
               <KeyValueLabel label="Package">
                 <div data-test-eholdings-customer-resource-show-package-name>
-                  <Link to={`/eholdings/vendors/${customerResource.customerResourcesList[0].vendorId}/packages/${customerResource.customerResourcesList[0].packageId}`}>{customerResource.customerResourcesList[0].packageName}</Link>
+                  <Link to={`/eholdings/vendors/${customerResource.vendorId}/packages/${customerResource.packageId}`}>{customerResource.packageName}</Link>
                 </div>
               </KeyValueLabel>
 
               <KeyValueLabel label="Vendor">
                 <div data-test-eholdings-customer-resource-show-vendor-name>
-                  <Link to={`/eholdings/vendors/${customerResource.customerResourcesList[0].vendorId}`}>{customerResource.customerResourcesList[0].vendorName}</Link>
+                  <Link to={`/eholdings/vendors/${customerResource.vendorId}`}>{customerResource.vendorName}</Link>
                 </div>
               </KeyValueLabel>
 
               <hr />
-
-              <KeyValueLabel label="Selected">
                 <div data-test-eholdings-customer-resource-show-selected>
-                  {customerResource.customerResourcesList[0].isSelected ? 'Yes' : 'No'}
+                  <Checkbox
+                    label="Selected"
+                    name="resource_selected"
+                    checked={customerResource.isSelected}
+                    onChange={saveChanges}
+                  />
                 </div>
-              </KeyValueLabel>
-
               <hr />
 
               <div>
@@ -58,5 +61,6 @@ export default function CustomerResourceShow({ customerResource }) {
 }
 
 CustomerResourceShow.propTypes = {
-  customerResource: PropTypes.object
+  customerResource: PropTypes.object,
+  saveChanges: PropTypes.func
 };

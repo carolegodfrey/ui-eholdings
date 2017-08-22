@@ -47,6 +47,10 @@ export default function () {
     return new Response(200, getHeaders(request), titles.find(matchingCustomerResource.titleId));
   });
 
+  this.put('/vendors/:vendorId/packages/:packageId/titles/:titleId', () => {
+    return new Response(200, getHeaders(request), null);
+  });
+
   // Title resources
   this.get('/titles', ({ titles }, request) => {
     const filteredTitles = titles.all().filter((titleModel) => {
