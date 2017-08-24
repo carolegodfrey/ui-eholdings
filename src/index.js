@@ -7,7 +7,7 @@ import SearchPackages from './routes/search/search-packages';
 import SearchTitles from './routes/search/search-titles';
 import VendorShow from './routes/vendor/vendor-show';
 import PackageShow from './routes/package/package-show';
-import CustomerResourceShow from './routes/customer-resource/customer-resource-show';
+import PackageTitleShow from './routes/customer-resource/package-title-show';
 import TitleShow from './routes/title/title-show';
 
 export default class EHoldings extends Component {
@@ -28,7 +28,7 @@ export default class EHoldings extends Component {
     this.SearchTitles = props.stripes.connect(SearchTitles);
     this.VendorShow = props.stripes.connect(VendorShow);
     this.PackageShow = props.stripes.connect(PackageShow);
-    this.CustomerResourceShow = props.stripes.connect(CustomerResourceShow);
+    this.PackageTitleShow = props.stripes.connect(PackageTitleShow);
     this.TitleShow = props.stripes.connect(TitleShow);
   }
 
@@ -42,7 +42,7 @@ export default class EHoldings extends Component {
         <Route path={`${rootPath}/titles`} exact component={this.SearchTitles}/>
         <Route path={`${rootPath}/vendors/:vendorId`} exact component={this.VendorShow}/>
         <Route path={`${rootPath}/vendors/:vendorId/packages/:packageId`} exact component={this.PackageShow}/>
-        <Route path={`${rootPath}/vendors/:vendorId/packages/:packageId/titles/:titleId`} exact component={this.CustomerResourceShow}/>
+        <Route path={`${rootPath}/vendors/:vendorId/packages/:packageId/titles/:titleId`} exact component={this.PackageTitleShow}/>
         <Route path={`${rootPath}/titles/:titleId`} exact component={this.TitleShow}/>
         <Route render={() => (<Redirect to={`${rootPath}/vendors`}/>)}/>
       </Switch>
