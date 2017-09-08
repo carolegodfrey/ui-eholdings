@@ -40,7 +40,8 @@ module.exports = function(config) {
 
     browserStack: {
       username: 'elrickryan1',
-      accessKey: process.env.browserStack
+      accessKey: process.env.browserStack,
+      build: 'ui-eholdings'
     },
 
     customLaunchers: {
