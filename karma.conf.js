@@ -49,13 +49,13 @@ module.exports = function(config) {
         base: 'Chrome',
         flags: ['--no-sandbox']
       },
-      bs_firefox_mac: {
-        base: 'BrowserStack',
-        browser: 'firefox',
-        browser_version: '54.0',
-        os: 'OS X',
-        os_version: 'Sierra'
-      },
+      // bs_firefox_mac: {
+      //   base: 'BrowserStack',
+      //   browser: 'firefox',
+      //   browser_version: '54.0',
+      //   os: 'OS X',
+      //   os_version: 'Sierra'
+      // },
       bs_ie11_windows: {
         base: 'BrowserStack',
         browser: 'ie',
@@ -63,13 +63,13 @@ module.exports = function(config) {
         os: 'Windows',
         os_version: "7"
       },
-      bs_ieEdge_windows: {
-        base: 'BrowserStack',
-        browser: 'edge',
-        browser_version: '15.0',
-        os: "Windows",
-        os_version: "10"
-      }
+      // bs_ieEdge_windows: {
+      //   base: 'BrowserStack',
+      //   browser: 'edge',
+      //   browser_version: '15.0',
+      //   os: "Windows",
+      //   os_version: "10"
+      // }
     },
 
     files: [
@@ -102,9 +102,7 @@ module.exports = function(config) {
   if (process.env.TRAVIS) {
     configuration.browsers = [
       'Chrome_travis_ci',
-      'bs_firefox_mac',
       'bs_ie11_windows',
-      'bs_ieEdge_windows'
     ];
   }
 
