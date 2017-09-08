@@ -51,9 +51,23 @@ module.exports = function(config) {
       bs_firefox_mac: {
         base: 'BrowserStack',
         browser: 'firefox',
-        browser_version: '',
+        browser_version: '54.0',
         os: 'OS X',
         os_version: 'Sierra'
+      },
+      bs_ie11_windows: {
+        base: 'BrowserStack',
+        browser: 'ie',
+        browser_version: '11.0',
+        os: 'Windows',
+        os_version: "7"
+      },
+      bs_ieEdge_windows: {
+        base: 'BrowserStack',
+        browser: 'edge',
+        browser_version: '15.0',
+        os: "Windows",
+        os_version: "10"
       }
     },
 
