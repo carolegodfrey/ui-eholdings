@@ -3,10 +3,6 @@ dist: trusty
 language: node_js
 addons:
   chrome: stable
-  browserstack:
-    username: elrickryan1
-    access_key:
-      secure: BDcUZ6DJcZYR+Xygji1652WCJT90b3dO4Xdhxt4R/fJT2lx19aMugz8IJY+0NbMdHqDmqRg+pPuLFi9CX4tDxT4sA+v05nMk8wSxQYDCadOXqxrR5iL4ZfNRWvXRdvjEVKTogZZNBgB0HmALzt6A4eM0DBRD83kEJ2t+Av668EaDWvH6q3TDFqoQZMxbcdnEl45Z40nCvsAgGmfaSoDP/5c08yft0CT16j3/IwxUDYDq9+5wEH/f6XMwdxHyuCSFo4FYLhOqVQJPDUr8wUmWICH5I0wybXtGMjnJSM6CHkjXm2cj4x5hY8hINQbW+/lkj8J1j2c4sXcaepCRDv1pA+2sGigvzO5/7CAjyfVKE7L77IpvbXfWBsO+GH2KJ90HbVRhBI/JzdOQaI96n9OncYkkzVGG8kY6tnt5V0gMj9RfTcbdVkVunaDDyFOaY7VGdii/SKkudsUWu1XtHYAJSxboKBFtSdiL9lJOwHy/PaNlZ+eRtOztrgRE2Mp1kCc2Q0sxmiFQuhLIB+xmdCTluwEZdTBUSa6WdAkFnEdb9YnpxpZ+zVIrM5Na1gNvQdKhcba5yCZPIpY/IebPqIC3doFk5Oejz17KcbJSAawbvBCQx0OvGl77stzk6SXivU938yaO5ORP1YeLlX/Ec2WQLETfBATEUDOpnrn458xs+hU="
 before_install:
 - export CHROME_BIN=google-chrome-stable
 - export DISPLAY=:99.0
