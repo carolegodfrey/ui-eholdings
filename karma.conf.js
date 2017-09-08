@@ -33,7 +33,7 @@ webpackConfig.plugins.push(new webpack.EnvironmentPlugin({
 module.exports = function(config) {
   let configuration = {
     frameworks: ['mocha'],
-    reporters: ['mocha'],
+    reporters: ['mocha', 'BrowserStack'],
     port: 9876,
 
     browsers: ['Chrome'],
