@@ -38,10 +38,22 @@ module.exports = function(config) {
 
     browsers: ['Chrome'],
 
+    browserStack: {
+      username: 'elrickryan1',
+      accessKey: process.env.browserStack
+    },
+
     customLaunchers: {
       Chrome_travis_ci: {
         base: 'Chrome',
         flags: ['--no-sandbox']
+      },
+      bs_firefox_mac: {
+        base: 'BrowserStack',
+        browser: 'firefox',
+        browser_version: '',
+        os: 'OS X',
+        os_version: 'Sierra'
       }
     },
 
@@ -64,6 +76,7 @@ module.exports = function(config) {
     },
 
     plugins: [
+      'karma-browserstack-launcher',
       'karma-chrome-launcher',
       'karma-mocha',
       'karma-webpack',
@@ -72,7 +85,7 @@ module.exports = function(config) {
   };
 
   if (process.env.TRAVIS) {
-    configuration.browsers = ['Chrome_travis_ci'];
+    configuration.browsers = ['Chrome_travis_ci', 'bs_firefox_mac'];
   }
 
   config.set(configuration);
