@@ -99,7 +99,12 @@ module.exports = function(config) {
   };
 
   if (process.env.TRAVIS) {
-    configuration.browsers = ['Chrome_travis_ci', 'bs_firefox_mac'];
+    configuration.browsers = [
+      'Chrome_travis_ci',
+      'bs_firefox_mac',
+      'bs_ie11_windows',
+      'bs_ieEdge_windows'
+    ];
   }
 
   config.set(configuration);
