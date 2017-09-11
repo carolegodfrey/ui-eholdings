@@ -68,6 +68,38 @@ module.exports = function(config) {
         browser_version: '15.0',
         os: "Windows",
         os_version: "10"
+      },
+      bs_samsungGS5_android: {
+        base: 'BrowserStack',
+        browser: 'android',
+        browser_version: null,
+        device: 'Samsung Galaxy S5',
+        os: 'android',
+        os_version: '4.4'
+      },
+      bs_googleNexus6_android: {
+        base: 'BrowserStack',
+        browser: 'android',
+        browser_version: null,
+        device: 'Google Nexus 6',
+        os: 'android',
+        os_version: '5.0'
+      },
+      bs_iPhone6_ios: {
+        base: 'BrowserStack',
+        browser: 'iphone',
+        browser_version: null,
+        device: 'iPhone 6S',
+        os: 'ios',
+        os_version: '9.1'
+      },
+      bs_iPadAir2_ios: {
+        base: 'BrowserStack',
+        browser: 'ipad',
+        browser_version: null,
+        device: 'iPad Air 2',
+        os: 'ios',
+        os_version: '9.1'
       }
     },
 
@@ -103,7 +135,11 @@ module.exports = function(config) {
       'Chrome_travis_ci',
       'bs_ie11_windows',
       'bs_firefox_mac',
-      'bs_ieEdge_windows'
+      'bs_ieEdge_windows',
+      'bs_samsungGS5_android',
+      'bs_googleNexus6_android',
+      'bs_iPhone6_ios',
+      'bs_iPadAir2_ios'
     ];
   }
 
