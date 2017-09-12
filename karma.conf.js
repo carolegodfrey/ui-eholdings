@@ -55,6 +55,13 @@ module.exports = function(config) {
         os: 'OS X',
         os_version: 'Sierra'
       },
+      bs_safari_mac: {
+        base: 'BrowserStack',
+        browser: 'safari',
+        browser_version: '10.1',
+        os: 'OS X',
+        os_version: 'Sierra'
+      },
       bs_ie11_windows: {
         base: 'BrowserStack',
         browser: 'ie',
@@ -135,11 +142,12 @@ module.exports = function(config) {
       'Chrome_travis_ci',
       'bs_ie11_windows',
       'bs_firefox_mac',
+      'bs_safari_mac',
       'bs_ieEdge_windows',
       'bs_samsungGS5_android',
       'bs_googleNexus6_android',
       'bs_iPhone6_ios',
-      'bs_iPadAir2_ios'
+      'bs_iPadAir2_ios',
     ];
   }
 
