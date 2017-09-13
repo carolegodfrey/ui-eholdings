@@ -103,6 +103,10 @@ export default function PackageShow({ vendorPackage, packageTitles }, { intl }) 
                 <p>Loading...</p>
               )}
             </div>
+          ) : vendorPackage.isRejected ? (
+            <p data-test-eholdings-package-details-error>
+              {vendorPackage.error.length ? vendorPackage.error[0].message : vendorPackage.error.message}
+            </p>
           ) : (
             <p>Loading...</p>
           )}
