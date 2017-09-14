@@ -5,15 +5,9 @@ import baseConfig from './config';
 import '../tests/force-fetch-polyfill';
 
 const environment = process.env.NODE_ENV;
-const moduleTypes = ['factories', 'fixtures', 'models', 'serializers', 'identity-managers'];
+const moduleTypes = ['scenarios', 'factories', 'fixtures', 'models', 'serializers', 'identity-managers'];
 
-// don't load scenarios in the 'test' environment since you want to
-// create the server configuration by hand to correspond to each test case.
-if (environment !== 'test') {
-  moduleTypes.push('scenarios');
-}
-
-let modules = moduleTypes.reduce((memo, name) => {
+let allModules = moduleTypes.reduce((memo, name) => {
   memo[camelize(name)] = {};
   return memo;
 }, {});
@@ -26,13 +20,32 @@ req.keys().forEach((modulePath) => {
   const moduleType = moduleParts[1];
   const moduleName = moduleParts[2];
 
-  if (moduleName && modules[moduleType]) {
+  if (moduleName && allModules[moduleType]) {
     const moduleKey = camelize(moduleName.replace('.js', ''));
-    modules[moduleType][moduleKey] = req(modulePath).default;
+    allModules[moduleType][moduleKey] = req(modulePath).default;
   }
 });
 
-export default function startMirage() {
+let { scenarios, ...modules } = allModules;
+
+export default function startMirage(...scenarioNames) {
+  // console.log("scenarios = ", scenarios);
+  // console.log("Object.keys(modules.scenarios) = ", Object.keys(modules.scenarios));
+  // // filter all of the scenarios by the passed scenario names
+  // let scenarioNames = Object.keys(modules.scenarios).filter(scenario => scenarios.includes(scenario));
+  // console.log("scenarioNames = ", scenarioNames);
+  // modules.scenarios = scenarioNames.reduce((object, key) => ({...object, [key]: modules.scenarios[key]}), {});
+  // console.log("modules.scenarios = ", modules.scenarios);
+
+
   let options = Object.assign(modules, { environment, baseConfig });
-  return new Mirage(options);
+  let server = new Mirage(options);
+
+  scenarioNames.forEach((scenario) => {
+    if (scenarios[scenario]) {
+      scenarios[scenario](server);
+    }
+  });
+
+  return server;
 }

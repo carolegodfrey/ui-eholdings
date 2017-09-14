@@ -19,7 +19,11 @@ class ApplicationRoute extends Component {
   }
 
   renderNoBackend() {
-    return (<div className="eholdings-no-backend" data-test-eholdings-no-backend></div>);
+    return (
+      <div className="eholdings-no-backend" data-test-eholdings-no-backend>
+        <h1>YOU HAVE NO BACKEND. GET ON THAT.</h1>
+      </div>
+    );
   }
 }
 

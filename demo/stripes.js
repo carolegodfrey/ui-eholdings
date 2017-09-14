@@ -30,7 +30,7 @@ commander
   .option('--host [host]', 'Host')
   .option('--cache', 'Use HardSourceWebpackPlugin cache')
   .option('--devtool [devtool]', 'Use another value for devtool instead of "inline-source-map"')
-  .option('--mirage', 'Use the mirage server to simulate the backend')
+  .option('--mirage [scenario]', 'Use the mirage server to simulate the backend')
   .arguments('<config>')
   .description('Launch a webpack-dev-server')
   .action(function (loaderConfigFile, options) {
@@ -45,7 +45,11 @@ commander
     config.plugins.push(new webpack.LoaderOptionsPlugin({
       options: { stripesLoader: stripesLoaderConfig }
     }));
-    config.plugins.push(new webpack.EnvironmentPlugin({ NODE_ENV: 'development' }));
+    console.log(options.mirage);
+    config.plugins.push(new webpack.EnvironmentPlugin({
+      NODE_ENV: 'development',
+      MIRAGE_SCENARIO: options.mirage === true ? 'default' : options.mirage
+    }));
     if (options.cache) config.plugins.push(cachePlugin);
     if (options.devtool) config.devtool = options.devtool;
 

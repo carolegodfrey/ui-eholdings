@@ -1,4 +1,4 @@
-export default function(server) {
+export default function defaultScenario(server) {
   function createVendor(name, packages = []) {
     let vendor = server.create('vendor', {
       vendorName: name,
