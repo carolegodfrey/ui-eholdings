@@ -6,4 +6,3 @@ import startMirage from '../mirage';
 * is disabled. Also, it will not included in test builds.
 */
 window.mirage = startMirage(process.env.MIRAGE_SCENARIO);
-console.log("process.env.MIRAGE_SCENARIO = ", process.env.MIRAGE_SCENARIO);

@@ -29,22 +29,20 @@ req.keys().forEach((modulePath) => {
 let { scenarios, ...modules } = allModules;
 
 export default function startMirage(...scenarioNames) {
-  // console.log("scenarios = ", scenarios);
-  // console.log("Object.keys(modules.scenarios) = ", Object.keys(modules.scenarios));
-  // // filter all of the scenarios by the passed scenario names
-  // let scenarioNames = Object.keys(modules.scenarios).filter(scenario => scenarios.includes(scenario));
-  // console.log("scenarioNames = ", scenarioNames);
-  // modules.scenarios = scenarioNames.reduce((object, key) => ({...object, [key]: modules.scenarios[key]}), {});
-  // console.log("modules.scenarios = ", modules.scenarios);
-
-
   let options = Object.assign(modules, { environment, baseConfig });
   let server = new Mirage(options);
 
-  scenarioNames.forEach((scenario) => {
-    if (scenarios[scenario]) {
-      scenarios[scenario](server);
-    }
+  // mirage does not load our factories outside of testing when we do
+  // not declare a default scenario, so we load them ourselves
+  if (environment !== 'test') {
+    server.loadFactories(modules.factories);
+  }
+
+  // mirage only loads a `default` scenario for us out of the box, so
+  // instead we run any scenarios after we initialize mirage
+  scenarioNames.filter(Boolean).forEach((scenarioName) => {
+    let scenario = scenarios[camelize(scenarioName)];
+    if (scenario) scenario(server);
   });
 
   return server;

@@ -45,7 +45,6 @@ commander
     config.plugins.push(new webpack.LoaderOptionsPlugin({
       options: { stripesLoader: stripesLoaderConfig }
     }));
-    console.log(options.mirage);
     config.plugins.push(new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       MIRAGE_SCENARIO: options.mirage === true ? 'default' : options.mirage

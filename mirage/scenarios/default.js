@@ -71,6 +71,6 @@ export default function defaultScenario(server) {
   ]);
 
   server.createList('vendor', 5, 'withPackagesAndTitles', {
-    packagesTotal: () => Math.floor(Math.random() * 10) + 1
+    get packagesTotal() { return Math.floor(Math.random() * 10) + 1; }
   });
 }

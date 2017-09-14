@@ -5,16 +5,17 @@ import { connect } from 'react-redux';
 class ApplicationRoute extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    modules: PropTypes.object,
     interfaces: PropTypes.object
   }
 
   render() {
-    let {
-      children,
-      interfaces: { eholdings: version }
-    } = this.props;
+    let { children, interfaces: { eholdings: version }} = this.props;
+
     return (
-      <div className="eholdings-application" data-test-eholdings-application>{version ? children : this.renderNoBackend()}</div>
+      <div className="eholdings-application" data-test-eholdings-application>
+        {version ? children : this.renderNoBackend()}
+      </div>
     );
   }
 

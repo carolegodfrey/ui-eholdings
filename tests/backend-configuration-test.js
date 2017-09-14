@@ -6,13 +6,9 @@ import { describeApplication } from './helpers';
 import { Response } from 'mirage-server';
 import ApplicationPage from './pages/application';
 
-describeApplication('Backend Configuration', {
-  beforeRender() {
-    let ns = this.server.namespace;
-    this.server.namespace = '';
-    this.server.get('/_/proxy/modules', []);
-    this.server.namespace = ns;
-  },
+describeApplication.only('Backend Configuration', {
+  scenarios: ['no-backend'],
+
   suite() {
     describe('when there is no backend module at all', function() {
       beforeEach(function() {
