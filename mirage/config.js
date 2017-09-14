@@ -1,11 +1,27 @@
 import { okapi } from 'stripes-loader';
 import { Response } from 'mirage-server';
 
-export default function () {
+export default function configure() {
   // Okapi configs
   this.urlPrefix = okapi.url;
   this.get('/_/version', () => '0.0.0');
-  this.get('/_/proxy/modules', []);
+  this.get('/_/proxy/modules', [{
+    "id" : "mod-kb-ebsco",
+    "name" : "kb-ebsco"
+  }]);
+  this.get('/_/proxy/modules/mod-kb-ebsco', {
+    "id" : "mod-kb-ebsco",
+    "name" : "kb-ebsco",
+    "provides" : [ {
+      "id" : "eholdings",
+      "version" : "0.1.0",
+      "handlers" : [ {
+        "methods" : [ "GET", "POST", "PUT", "PATCH", "DELETE" ],
+        "pathPattern" : "/eholdings/*"
+      } ]
+    } ],
+    "permissionSets" : [ ]
+  });
   this.get('/saml/check', {
     ssoEnabled: false
   });

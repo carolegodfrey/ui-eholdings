@@ -241,14 +241,15 @@ export function createRequestEpic({
     action$.ofType(REQUEST_MAKE)
       .filter((action) => action.name === name)
       .switchMap(({ data = {}, options = {} }) => {
-        let { okapi } = getState();
+        let state = getState();
+        let { okapi } = state;
         let { method = 'GET' } = options;
         let body, headers = { 'X-Okapi-Tenant': okapi.tenant };
         let url = endpoint;
 
         // endpoint url
         if (typeof endpoint === 'function') {
-          url = `${okapi.url}/${endpoint(data, options)}`;
+          url = `${okapi.url}/${endpoint(data, options, state)}`;
         } else {
           url = `${okapi.url}/${endpoint}`;
         }
