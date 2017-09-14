@@ -2,6 +2,7 @@ const commander = require('commander');
 const webpack = require('webpack');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const path = require('path');
+const fs = require('fs');
 
 const devConfig = require('@folio/stripes-core/webpack.config.cli.dev');
 
@@ -30,10 +31,20 @@ commander
   .option('--host [host]', 'Host')
   .option('--cache', 'Use HardSourceWebpackPlugin cache')
   .option('--devtool [devtool]', 'Use another value for devtool instead of "inline-source-map"')
-  .option('--mirage [scenario]', 'Use the mirage server to simulate the backend')
+  .option('--mirage [scenario]', 'Use the mirage server to simulate the backend', function(scenario) {
+    if (scenario === true) scenario = 'default';
+
+    if (!fs.existsSync(path.join(__dirname, '../mirage/scenarios', `${scenario}.js`))) {
+      console.warn(`Unable to find mirage scenario "${scenario}"`);
+      return 'default';
+    } else {
+      return scenario;
+    }
+  })
   .arguments('<config>')
   .description('Launch a webpack-dev-server')
   .action(function (loaderConfigFile, options) {
+    const mirageOption = options.mirage === true ? 'default' : options.mirage;
     const express = require('express');
     const app = express();
 
@@ -47,7 +58,7 @@ commander
     }));
     config.plugins.push(new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
-      MIRAGE_SCENARIO: options.mirage === true ? 'default' : options.mirage
+      MIRAGE_SCENARIO: mirageOption
     }));
     if (options.cache) config.plugins.push(cachePlugin);
     if (options.devtool) config.devtool = options.devtool;
@@ -61,7 +72,7 @@ commander
       }
     });
 
-    const compiler = webpack(mirage(svgloader(config), options.mirage));
+    const compiler = webpack(mirage(svgloader(config), mirageOption));
 
     const port = options.port || process.env.STRIPES_PORT || 3000;
     const host = options.host || process.env.STRIPES_HOST || 'localhost';
@@ -120,7 +131,7 @@ if (!process.argv.slice(2).length) {
 
 function mirage(config, enabled = false) {
   if (enabled) {
-    console.info('Using Mirage Server');
+    console.info(`Using Mirage Server with scenario "${enabled}"`);
     return Object.assign({}, config, {
       entry: ['./demo/boot-mirage'].concat(config.entry)
     });
