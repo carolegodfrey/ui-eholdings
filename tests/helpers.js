@@ -41,10 +41,6 @@ export function describeApplication(name, setup, describe = window.describe) {
       this.server = startMirage(setup.scenarios);
       this.server.logging = false;
 
-      if (setup.beforeRender) {
-        setup.beforeRender.call(this);
-      }
-
       this.app = render(<TestHarness/>, rootElement);
 
       this.visit = visit.bind(null, this);

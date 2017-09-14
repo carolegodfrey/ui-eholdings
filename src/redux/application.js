@@ -1,18 +1,17 @@
-import { createRequestReducer, createRequestEpic, createRequestCreator } from './request';
+import {
+  createRequestReducer,
+  createRequestEpic,
+  createRequestCreator
+} from './request';
+
+export const getBackendConfig = createRequestCreator('backend-configuration');
 
 export const applicationReducer = createRequestReducer({
-  name: 'application',
-  initialContent: []
+  name: 'backend-configuration',
+  initialContent: {}
 });
 
 export const applicationEpics = createRequestEpic({
-  name: 'application',
-  endpoint({ tenant }) {
-    return `_/proxy/tenants/${tenant}/interfaces/eholdings`;
-  },
-  deserialize(payload) {
-    payload.map(item => item.id);
-  }
+  name: 'backend-configuration',
+  endpoint: 'eholdings/configuration'
 });
-
-export const discoverEholdingsInterfaces = createRequestCreator('application');

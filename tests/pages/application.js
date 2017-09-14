@@ -8,5 +8,8 @@ export default  {
   },
   get doesNotHaveBackend() {
     return $('[data-test-eholdings-no-backend]').length > 0;
+  },
+  get backendNotConfigured() {
+    return $('[data-test-eholdings-unconfigured-backend]').length > 0;
   }
 };

@@ -6,7 +6,7 @@ import { describeApplication } from './helpers';
 import { Response } from 'mirage-server';
 import ApplicationPage from './pages/application';
 
-describeApplication.only('Backend Configuration', {
+describeApplication('With No Backend Configuration', {
   scenarios: ['no-backend'],
 
   suite() {
@@ -19,8 +19,21 @@ describeApplication.only('Backend Configuration', {
         expect(ApplicationPage.doesNotHaveBackend).to.be.true;
       });
     });
+  }
+});
+
+describeApplication.only('With Bad Backend Configuration', {
+  scenarios: ['unconfigured-backend'],
+
+  suite() {
     describe('when there is a backend module, but it is not properly configured', function() {
-      it('blocks access to the eholdings app and points you to the configuration screen');
+      beforeEach(function() {
+        return this.visit('/eholdings', () => expect(ApplicationPage.$root).to.exist);
+      });
+
+      it('blocks access to the eholdings app and points you to the configuration screen', function() {
+        expect(ApplicationPage.backendNotConfigured).to.be.true;
+      });
     });
 
     describe('configuring the mod-kb-ebsco backend', function() {
